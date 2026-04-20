@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#007AFF" />
+    <meta name="description" content="Vote for HighTEA at your company" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/icon-192x192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>HighTEA Voting App</title>
+    
+    <!-- PWA Meta Tags for iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HighTEA Vote">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+    <!-- Prevent input zoom on focus -->
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Preconnect to Firebase -->
+    <link rel="preconnect" href="https://firebaseapp.com">
+    <link rel="preconnect" href="https://firebaseio.com">
+    
+    <!-- iOS Compatibility Script -->
+    <script>
+      (function() {
+        // Fix for iOS viewport height (100vh on Safari)
+        const viewport = document.querySelector('meta[name="viewport"]');
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        
+        if (isIOS) {
+          // Set initial viewport height
+          const setViewportHeight = () => {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', vh + 'px');
+          };
+          
+          setViewportHeight();
+          window.addEventListener('resize', setViewportHeight);
+          window.addEventListener('orientationchange', setViewportHeight);
+        }
+        
+        // Prevent rubber band scrolling
+        document.addEventListener('touchmove', function(e) {
+          if (e.target.closest('input, textarea, [data-scrollable]')) return;
+        }, { passive: false });
+        
+        // Prevent iOS keyboard zoom
+        if (isIOS) {
+          const inputs = document.querySelectorAll('input, textarea, select');
+          inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+              this.style.fontSize = '16px';
+            });
+          });
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    
+    <!-- Firebase App Check (optional) -->
+    <!-- Service worker disabled - notifications not currently needed -->
+    <!-- 
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/firebase-messaging-sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+    -->
+  </body>
+</html>

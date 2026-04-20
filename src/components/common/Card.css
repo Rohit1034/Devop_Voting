@@ -1,0 +1,59 @@
+/* Professional card component with modern design and responsive adjustments */
+
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--spacing-lg);
+  transition: all var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.card.compact {
+  padding: var(--spacing-md);
+}
+
+.card.large {
+  padding: var(--spacing-xl);
+}
+
+/* Card with padding modifiers */
+.card[data-padding="small"] {
+  padding: var(--spacing-md);
+}
+
+.card[data-padding="medium"] {
+  padding: var(--spacing-lg);
+}
+
+.card[data-padding="large"] {
+  padding: var(--spacing-xl);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card {
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .card.large {
+    padding: var(--spacing-lg);
+  }
+}

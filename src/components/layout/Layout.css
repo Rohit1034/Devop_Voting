@@ -1,0 +1,58 @@
+/* Professional layout with proper structure and responsive design */
+
+.layout {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background);
+  transition: background-color var(--transition-normal);
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  padding-top: max(var(--spacing-sm), env(safe-area-inset-top));
+  padding-left: max(var(--spacing-md), env(safe-area-inset-left));
+  padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+  padding-bottom: max(var(--spacing-md), env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.layout-header {
+  flex-shrink: 0;
+}
+
+.layout-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+}
+
+.layout-main-with-header {
+  padding-top: 0;
+}
+
+.layout-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .layout-main {
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout {
+    min-height: 100vh;
+  }
+
+  .layout-main {
+    width: 100%;
+  }
+}

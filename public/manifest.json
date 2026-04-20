@@ -1,0 +1,21 @@
+{
+  "short_name": "Breakfast Vote",
+  "name": "Breakfast Voting App",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#007AFF",
+  "background_color": "#F2F2F7",
+  "orientation": "portrait"
+}

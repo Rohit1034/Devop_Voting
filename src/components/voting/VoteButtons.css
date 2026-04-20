@@ -1,0 +1,210 @@
+/* Professional vote buttons with excellent mobile responsiveness and accessibility */
+
+.vote-buttons-container {
+  margin: var(--spacing-lg) 0;
+}
+
+.vote-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.vote-button {
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  border: 2px solid transparent;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  min-height: 56px;
+  letter-spacing: 0.3px;
+  text-transform: capitalize;
+  position: relative;
+  overflow: hidden;
+}
+
+.vote-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left var(--transition-fast);
+  z-index: -1;
+}
+
+.vote-button:hover::before:not(:disabled) {
+  left: 100%;
+}
+
+.vote-button-icon {
+  font-size: var(--font-size-xl);
+  display: flex;
+  align-items: center;
+}
+
+.vote-button-text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: inherit;
+}
+
+/* Yes Button */
+.vote-button-yes {
+  background-color: var(--color-success);
+  color: white;
+  border-color: var(--color-success);
+}
+
+.vote-button-yes:hover:not(:disabled) {
+  background-color: var(--color-success-dark);
+  border-color: var(--color-success-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.vote-button-yes:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* No Button */
+.vote-button-no {
+  background-color: var(--color-danger);
+  color: white;
+  border-color: var(--color-danger);
+}
+
+.vote-button-no:hover:not(:disabled) {
+  background-color: var(--color-danger-dark);
+  border-color: var(--color-danger-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.vote-button-no:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.vote-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.vote-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Selected State */
+.vote-button-selected {
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Confirmation Message */
+.vote-confirmation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border: 1px solid var(--color-success-border);
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-semibold);
+  animation: slideUp 0.3s ease-out;
+}
+
+.vote-confirmation-icon {
+  font-size: var(--font-size-lg);
+  color: var(--color-success);
+  display: flex;
+  align-items: center;
+}
+
+/* Closed Message */
+.vote-closed-message {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-size: var(--font-size-sm);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+  .vote-buttons {
+    gap: var(--spacing-md);
+  }
+
+  .vote-button {
+    padding: var(--spacing-lg);
+    font-size: var(--font-size-base);
+    min-height: 52px;
+  }
+
+  .vote-button-icon {
+    font-size: var(--font-size-lg);
+  }
+
+  .vote-button-text {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+  .vote-buttons {
+    gap: var(--spacing-md);
+  }
+
+  .vote-button {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    min-height: 48px;
+  }
+
+  .vote-button-icon {
+    font-size: var(--font-size-base);
+  }
+
+  .vote-button-text {
+    font-size: var(--font-size-sm);
+  }
+
+  .vote-confirmation {
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .vote-closed-message {
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 360px) {
+  .vote-button {
+    padding: var(--spacing-md);
+  }
+
+  .vote-button-text {
+    font-size: var(--font-size-xs);
+  }
+
+  .vote-button-icon {
+    font-size: var(--font-size-sm);
+  }
+}
