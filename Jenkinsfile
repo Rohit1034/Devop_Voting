@@ -16,9 +16,14 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                script {
-                    echo "Building Docker image..."
-                    sh "docker build -t ${IMAGE_REPO_NAME}:${IMAGE_TAG} ."
+                withCredentials([file(credentialsId: 'env-file', variable: 'ENV_FILE')]) {
+                    script {
+                        echo "Copying .env file..."
+                        sh "cp \$ENV_FILE .env"
+                        
+                        echo "Building Docker image..."
+                        sh "docker build -t ${IMAGE_REPO_NAME}:${IMAGE_TAG} ."
+                    }
                 }
             }
         }
