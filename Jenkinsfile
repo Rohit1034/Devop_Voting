@@ -19,6 +19,7 @@ pipeline {
                 withCredentials([file(credentialsId: 'env-file', variable: 'ENV_FILE')]) {
                     script {
                         echo "Copying .env file..."
+                        sh "rm -f .env || true"
                         sh "cp \"\$ENV_FILE\" .env"
                         
                         echo "Building Docker image..."
