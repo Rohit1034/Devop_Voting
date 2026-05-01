@@ -45,20 +45,27 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['ec2-ssh-key']) {
-                    script {
-                        echo "Connecting to EC2 to deploy..."
-                        sh """
-                        ssh -o StrictHostKeyChecking=no ubuntu@${EC2_PUBLIC_IP} '
-                            aws configure set aws_access_key_id \$AWS_ACCESS_KEY_ID &&
-                            aws configure set aws_secret_access_key \$AWS_SECRET_ACCESS_KEY &&
-                            aws configure set default.region ${AWS_DEFAULT_REGION} &&
-                            aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | sudo docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com &&
-                            sudo docker pull ${REPOSITORY_URI}:${IMAGE_TAG} &&
-                            sudo docker rm -f voting-frontend || true &&
-                            sudo docker run -d -p 80:80 --name voting-frontend ${REPOSITORY_URI}:${IMAGE_TAG}
-                        '
-                        """
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding', 
+                    credentialsId: 'aws-credentials', 
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    sshagent(['ec2-ssh-key']) {
+                        script {
+                            echo "Connecting to EC2 to deploy..."
+                            sh """
+                            ssh -o StrictHostKeyChecking=no ubuntu@${EC2_PUBLIC_IP} '
+                                aws configure set aws_access_key_id \$AWS_ACCESS_KEY_ID &&
+                                aws configure set aws_secret_access_key \$AWS_SECRET_ACCESS_KEY &&
+                                aws configure set default.region ${AWS_DEFAULT_REGION} &&
+                                aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | sudo docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com &&
+                                sudo docker pull ${REPOSITORY_URI}:${IMAGE_TAG} &&
+                                sudo docker rm -f voting-frontend || true &&
+                                sudo docker run -d -p 80:80 --name voting-frontend ${REPOSITORY_URI}:${IMAGE_TAG}
+                            '
+                            """
+                        }
                     }
                 }
             }
